@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const VideoCard = ({ info }) => {
+const VideoCard = ({ info }) => {
 	console.log(info);
 	const { snippet, statistics } = info;
 	const { channelTitle, title, thumbnails } = snippet;
@@ -15,3 +15,14 @@ export const VideoCard = ({ info }) => {
 		</div>
 	);
 };
+
+// HOC (Higher Order Components) we are using to show adds
+export const AdVideoCard = ({ info }) => {
+	return (
+		<div className="m-1 p-1 border border-red-700">
+			<VideoCard info={info} />
+		</div>
+	);
+};
+
+export default VideoCard;
