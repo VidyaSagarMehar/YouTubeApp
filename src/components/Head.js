@@ -1,8 +1,42 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { toggleMenu } from '../utils/appSlice';
+import { YOUTUBE_SEARCH_API } from '../utils/constants';
 
 const Head = () => {
+	const [searchQuery, setSearchQuery] = useState('');
+
+	useEffect(() => {
+		// API call using DEBOUNCING
+		const timer = setTimeout(() => getSearchSuggestions(), 200);
+
+		// clearing the timer
+		return () => {
+			clearTimeout(timer);
+		};
+	}, [searchQuery]);
+
+	/**
+	 * key - i
+	 * - render the component
+	 * - useEffect ();
+	 * - start timer =? make api call after 200ms
+	 *
+	 * if we give input before 200ms key - ip
+	 * - destroy the component
+	 * - re-render the component
+	 * - useEffect()
+	 * - start timer => make api call after 200ms
+	 *
+	 * setTimeout(200ms) - make an api call
+	 */
+
+	const getSearchSuggestions = async () => {
+		const data = await fetch(YOUTUBE_SEARCH_API + searchQuery);
+		const json = await data.json();
+		console.log(json);
+	};
+
 	const dispatch = useDispatch();
 	const toggleMenuHandler = () => {
 		dispatch(toggleMenu());
@@ -23,7 +57,11 @@ const Head = () => {
 				/>
 			</div>
 			<div className="col-span-10">
-				<input className="border-2 rounded-l-full w-1/3 px-2" type="text" />
+				<input
+					className="border-2 rounded-l-full w-1/3 px-2"
+					type="text"
+					onChange={(e) => setSearchQuery(e.target.value)}
+				/>
 				<button className="border-2 rounded-r-full px-2">🔍</button>
 			</div>
 			<div className="col-span-1">

@@ -21,6 +21,7 @@ export const AdVideoCard = ({ info }) => {
 	return (
 		<div className="m-1 p-1 border border-red-700">
 			<VideoCard info={info} />
+			<h2>Sponsored</h2>
 		</div>
 	);
 };
