@@ -5,6 +5,7 @@ import { YOUTUBE_SEARCH_API } from '../utils/constants';
 
 const Head = () => {
 	const [searchQuery, setSearchQuery] = useState('');
+	const [suggestions, setSuggestions] = useState([]);
 
 	useEffect(() => {
 		// API call using DEBOUNCING
@@ -34,7 +35,8 @@ const Head = () => {
 	const getSearchSuggestions = async () => {
 		const data = await fetch(YOUTUBE_SEARCH_API + searchQuery);
 		const json = await data.json();
-		console.log(json);
+		// console.log(json);
+		setSuggestions(json[1]);
 	};
 
 	const dispatch = useDispatch();
@@ -57,12 +59,23 @@ const Head = () => {
 				/>
 			</div>
 			<div className="col-span-10">
-				<input
-					className="border-2 rounded-l-full w-1/3 px-2"
-					type="text"
-					onChange={(e) => setSearchQuery(e.target.value)}
-				/>
-				<button className="border-2 rounded-r-full px-2">🔍</button>
+				<div>
+					<input
+						className="border-2 rounded-l-full w-1/3 px-2"
+						type="text"
+						onChange={(e) => setSearchQuery(e.target.value)}
+					/>
+					<button className="border-2 rounded-r-full px-2">🔍</button>
+				</div>
+				<div className="fixed bg-white py-2 px-5 w-[32rem] shadow-lg rounded-lg border-gray-100">
+					<ul>
+						{suggestions.map((s) => (
+							<li key={s} className="py-2 shadow-sm hover:bg-gray-100">
+								🔍 {s}
+							</li>
+						))}
+					</ul>
+				</div>
 			</div>
 			<div className="col-span-1">
 				<img
