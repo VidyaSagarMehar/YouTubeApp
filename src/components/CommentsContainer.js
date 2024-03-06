@@ -43,8 +43,8 @@ const commentsData = [
 
 const CommentList = ({ comments }) => {
 	return comments.map((comment, index) => (
-		<div>
-			<Comment key={index} data={comment} />
+		<div key={index}>
+			<Comment data={comment} />
 			{/* displaying replies - using recursion*/}
 			<div className="ml-5 pl-5 border-l">
 				<CommentList comments={comment.replies} />
