@@ -23,7 +23,7 @@ const LiveChat = () => {
 					message: makeRandomMessage(20),
 				}),
 			);
-		}, 700);
+		}, 2000);
 
 		//clear interval
 		return () => clearInterval(interval);
@@ -47,6 +47,7 @@ const LiveChat = () => {
 							message: liveMessage,
 						}),
 					);
+					setLiveMessage('');
 				}}
 			>
 				<input
