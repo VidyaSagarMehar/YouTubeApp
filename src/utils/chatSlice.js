@@ -7,7 +7,11 @@ const chatSlice = createSlice({
 	},
 	reducers: {
 		addMessage: (state, action) => {
-			state.messages.push(action.payload);
+			// it will push at the end
+			// state.messages.push(action.payload);
+
+			// it will push it at the begining
+			state.messages.unshift(action.payload);
 		},
 	},
 });
